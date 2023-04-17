@@ -5,14 +5,18 @@ html = requests.get("https://www.sorteonline.com.br/resultados").text
 
 soup = BeautifulSoup(html, 'html.parser')
 
-temperaturas = soup.find('div','card lot-megasena')
+resultados = soup.find('div','card lot-megasena')
 
-uls = temperaturas.find('ul')
+uls = resultados.find('ul')
+dezenas = []
+unique_numbers = []
 
-for ul in uls:
-    print(ul.get_text())
-
-
-
-#for temperatura in temperaturas:
-#    print(temperatura.get_text())
+for ul in uls:    
+    if ul.get_text() is not None:                
+        if ul.get_text() != str("/n"):            
+            dezenas.append(ul.get_text())
+   
+dezenas = filter(None,dezenas)
+for dezena in dezenas:
+    if dezena is not None:
+        print(str(dezena))                    
